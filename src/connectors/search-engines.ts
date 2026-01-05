@@ -155,7 +155,7 @@ export class DuckDuckGoConnector extends BaseConnector {
       // DuckDuckGo Instant Answer API or HTML search
       // Note: DuckDuckGo doesn't have a public API, so this would use
       // their HTML interface with proper rate limiting
-      const query = this.buildQuery(name, aliases, location);
+      this.buildQuery(name, aliases, location); // Build query for future use
       
       // Mock implementation - in production, use DuckDuckGo HTML search
       // with proper parsing and rate limiting
@@ -179,7 +179,7 @@ export class DuckDuckGoConnector extends BaseConnector {
     }
   }
 
-  private buildQuery(name: string, aliases: string[], location?: Location): string {
+  private buildQuery(name: string, _aliases: string[], location?: Location): string {
     let query = name;
     if (location?.city) query += ` ${location.city}`;
     if (location?.state) query += ` ${location.state}`;

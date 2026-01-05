@@ -20,7 +20,7 @@ export class GeoNamesConnector extends BaseConnector {
 
   async searchPerson(
     name: string,
-    aliases: string[],
+    _aliases: string[],
     location?: Location
   ): Promise<Entity[]> {
     if (!(await this.isAvailable())) {

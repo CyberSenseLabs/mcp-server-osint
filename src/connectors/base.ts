@@ -3,7 +3,7 @@ import type {
   ConnectorConfig,
   ConnectorMetadata,
 } from '../types/connector.js';
-import type { Entity, Location } from '../types/schemas.js';
+import type { Entity, Location, Source } from '../types/schemas.js';
 import { AuditLogger } from '../core/logger.js';
 
 /**
@@ -12,7 +12,7 @@ import { AuditLogger } from '../core/logger.js';
 export abstract class BaseConnector implements OSINTConnector {
   abstract readonly id: string;
   abstract readonly name: string;
-  abstract readonly type: ConnectorMetadata['type'];
+  abstract readonly type: Source['type'];
   
   protected config: ConnectorConfig;
   protected lastRequestTime: number = 0;

@@ -19,9 +19,9 @@ export class PublicRecordsConnector extends BaseConnector {
   }
 
   async searchPerson(
-    name: string,
-    aliases: string[],
-    location?: Location
+    _name: string,
+    _aliases: string[],
+    _location?: Location
   ): Promise<Entity[]> {
     if (!(await this.isAvailable())) {
       throw new Error('Public records connector is rate-limited');
