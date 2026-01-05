@@ -1,0 +1,62 @@
+{
+  "example_queries": [
+    {
+      "tool": "person_search",
+      "description": "Basic person search with full name",
+      "input": {
+        "full_name": "John Smith",
+        "confidence_threshold": 0.5,
+        "max_results": 20
+      }
+    },
+    {
+      "tool": "person_search",
+      "description": "Person search with aliases and location",
+      "input": {
+        "full_name": "Jane Doe",
+        "aliases": ["J. Doe", "Jane D."],
+        "location": {
+          "city": "San Francisco",
+          "state": "CA",
+          "country": "US"
+        },
+        "confidence_threshold": 0.6,
+        "max_results": 50
+      }
+    },
+    {
+      "tool": "person_search",
+      "description": "Partial name search with high confidence threshold",
+      "input": {
+        "full_name": "Michael",
+        "location": {
+          "city": "London",
+          "country": "UK"
+        },
+        "confidence_threshold": 0.8,
+        "max_results": 10
+      }
+    },
+    {
+      "tool": "source_attribution",
+      "description": "Get attribution for a specific source",
+      "input": {
+        "source_name": "google_search"
+      }
+    },
+    {
+      "tool": "confidence_scoring",
+      "description": "Compare confidence between entities",
+      "input": {
+        "entity_ids": ["entity_1", "entity_2"]
+      }
+    }
+  ],
+  "notes": [
+    "All queries are logged for audit purposes",
+    "Results are normalized and deduplicated automatically",
+    "Confidence scores range from 0.0 to 1.0",
+    "Ethical guardrails filter sensitive queries automatically"
+  ]
+}
+

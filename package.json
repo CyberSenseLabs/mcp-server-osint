@@ -1,0 +1,50 @@
+{
+  "name": "@cybersense/mcp-server-osint",
+  "version": "1.0.0",
+  "description": "OSINT MCP Server for person-centric intelligence gathering with ethical guardrails",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "mcp-server-osint": "./dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "tsx watch src/index.ts",
+    "test": "vitest",
+    "test:coverage": "vitest --coverage",
+    "lint": "eslint src --ext .ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "keywords": [
+    "mcp",
+    "osint",
+    "intelligence",
+    "person-search",
+    "cybersecurity"
+  ],
+  "author": "Cyber Sense",
+  "license": "MIT",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.4",
+    "axios": "^1.7.7",
+    "fuse.js": "^7.0.0",
+    "zod": "^3.23.8",
+    "winston": "^3.15.0",
+    "dotenv": "^16.4.5"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.12",
+    "@typescript-eslint/eslint-plugin": "^7.18.0",
+    "@typescript-eslint/parser": "^7.18.0",
+    "eslint": "^8.57.0",
+    "tsx": "^4.16.2",
+    "typescript": "^5.5.4",
+    "vitest": "^2.0.5",
+    "@vitest/coverage-v8": "^2.0.5"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
+
