@@ -18,7 +18,7 @@ export class LinkedInConnector extends BaseConnector {
 
   async searchPerson(
     name: string,
-    aliases: string[],
+    _aliases: string[],
     location?: Location
   ): Promise<Entity[]> {
     if (!(await this.isAvailable())) {
@@ -49,7 +49,11 @@ export class LinkedInConnector extends BaseConnector {
           confidence: 0.7,
           url: profile.url,
         }],
-        [profile],
+        [{
+          platform: this.id,
+          url: profile.url,
+          display_name: profile.name,
+        }],
         profile.location ? [profile.location] : (location ? [location] : [])
       ));
     } catch (error) {
@@ -65,7 +69,7 @@ export class LinkedInConnector extends BaseConnector {
     return query;
   }
 
-  private async searchPublicProfiles(query: string): Promise<Array<{
+  private async searchPublicProfiles(_query: string): Promise<Array<{
     name: string;
     url: string;
     location?: Location;
@@ -118,7 +122,7 @@ export class TwitterConnector extends BaseConnector {
 
   async searchPerson(
     name: string,
-    aliases: string[],
+    _aliases: string[],
     location?: Location
   ): Promise<Entity[]> {
     if (!(await this.isAvailable())) {
@@ -130,12 +134,12 @@ export class TwitterConnector extends BaseConnector {
     try {
       // Use Twitter API v2 for user search (if token available)
       // Otherwise, use public profile URLs
-      const profiles = await this.searchProfiles(name, aliases);
+      const profiles = await this.searchProfiles(name);
       
       this.logAccess(true);
       
       return profiles.map(profile => this.createEntity(
-        profile.name || name,
+        profile.display_name || name,
         0.65,
         [{
           name: this.name,
@@ -154,8 +158,7 @@ export class TwitterConnector extends BaseConnector {
   }
 
   private async searchProfiles(
-    name: string,
-    aliases: string[]
+    name: string
   ): Promise<Profile[]> {
     if (this.bearerToken) {
       // Use Twitter API v2

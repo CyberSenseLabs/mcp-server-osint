@@ -1,4 +1,3 @@
-import Fuse from 'fuse.js';
 import type { Entity, Location, PersonSearchInput } from '../types/schemas.js';
 
 /**
@@ -288,7 +287,7 @@ export class PersonResolver {
 
   private buildCorrelationExplanation(
     cluster: Entity[],
-    query: PersonSearchInput
+    _query: PersonSearchInput
   ): string {
     const factors: string[] = [];
     

@@ -228,7 +228,7 @@ export class OSINTTools {
       search_metadata: {
         query_time: new Date().toISOString(),
         sources_queried: sourcesQueried,
-        warnings: warnings.length > 0 ? warnings : undefined,
+        warnings: warnings.length > 0 ? warnings : [],
         total_results: sanitized.length,
         processing_time_ms: processingTime,
       },
@@ -236,7 +236,7 @@ export class OSINTTools {
 
     // Audit log
     AuditLogger.logQuery(query, {
-      sources_queried,
+      sources_queried: sourcesQueried,
       result_count: sanitized.length,
       processing_time_ms: processingTime,
     });

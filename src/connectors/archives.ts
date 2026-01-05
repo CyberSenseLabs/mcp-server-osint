@@ -62,7 +62,7 @@ export class WaybackMachineConnector extends BaseConnector {
     }
   }
 
-  private buildQuery(name: string, aliases: string[], location?: Location): string {
+  private buildQuery(name: string, _aliases: string[], location?: Location): string {
     let query = name;
     if (location?.city) query += ` ${location.city}`;
     return query;
