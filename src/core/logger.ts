@@ -15,8 +15,10 @@ export const logger = winston.createLogger({
   },
   transports: [
     new winston.transports.Console({
+      // Log to stderr instead of stdout to avoid interfering with MCP JSON-RPC on stdout
+      stderrLevels: ['error', 'warn', 'info', 'debug'],
       format: winston.format.combine(
-        winston.format.colorize(),
+        // Disable colors for MCP compatibility
         winston.format.simple()
       ),
     }),
