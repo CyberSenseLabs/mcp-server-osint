@@ -10,6 +10,36 @@ import type { Entity } from '../types/schemas.js';
 import type { ConnectorMetadata } from '../types/connector.js';
 
 /**
+ * Safely serialize object to JSON, removing undefined values and converting Date objects
+ */
+function safeJsonStringify(obj: any, space?: number): string {
+  try {
+    // Use JSON.stringify with a replacer function to handle undefined values and Date objects
+    return JSON.stringify(obj, (_key, value) => {
+      // Remove undefined values (this omits the key from the object)
+      if (value === undefined) {
+        return undefined;
+      }
+      // Convert Date objects to ISO strings
+      if (value instanceof Date) {
+        return value.toISOString();
+      }
+      // Handle objects with toJSON methods (like Date if not already converted)
+      if (typeof value === 'object' && value !== null && typeof (value as any).toJSON === 'function') {
+        return (value as any).toJSON();
+      }
+      return value;
+    }, space);
+  } catch (error) {
+    // Fallback: if there's a circular reference or other error, return a safe error message
+    return JSON.stringify({ 
+      error: 'Serialization error', 
+      message: error instanceof Error ? error.message : 'Unknown error' 
+    }, null, space);
+  }
+}
+
+/**
  * MCP Tool implementations
  */
 export class OSINTTools {
@@ -245,7 +275,7 @@ export class OSINTTools {
       content: [
         {
           type: 'text',
-          text: JSON.stringify(output, null, 2),
+          text: safeJsonStringify(output, 2),
         },
       ],
     };
@@ -271,10 +301,10 @@ export class OSINTTools {
           content: [
             {
               type: 'text',
-              text: JSON.stringify({
+              text: safeJsonStringify({
                 source: metadata,
                 citation_format: this.generateCitation(metadata),
-              }, null, 2),
+              }, 2),
             },
           ],
         };
@@ -287,10 +317,10 @@ export class OSINTTools {
       content: [
         {
           type: 'text',
-          text: JSON.stringify({
+          text: safeJsonStringify({
             sources: allMetadata,
             note: 'Use source_attribution with entity_id after person_search for specific attribution chains',
-          }, null, 2),
+          }, 2),
         },
       ],
     };
@@ -323,7 +353,7 @@ export class OSINTTools {
       content: [
         {
           type: 'text',
-          text: JSON.stringify({
+          text: safeJsonStringify({
             methodology: {
               name_similarity: {
                 weight: 0.4,
@@ -343,7 +373,7 @@ export class OSINTTools {
               },
             },
             note: 'Provide entity data from person_search results for specific confidence calculations',
-          }, null, 2),
+          }, 2),
         },
       ],
     };

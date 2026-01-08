@@ -181,7 +181,7 @@ export class TwitterConnector extends BaseConnector {
           display_name: user.name,
           bio: user.description,
           follower_count: user.public_metrics?.followers_count,
-          created_at: user.created_at,
+          created_at: user.created_at ? String(user.created_at) : undefined,
         }));
       } catch (error) {
         // API error - fall back to empty
