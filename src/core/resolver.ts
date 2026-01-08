@@ -70,7 +70,7 @@ export class PersonResolver {
   private calculateSimilarity(
     e1: Entity,
     e2: Entity,
-    query: PersonSearchInput
+    _query: PersonSearchInput
   ): number {
     let score = 0;
     let weight = 0;
@@ -81,11 +81,10 @@ export class PersonResolver {
     weight += 0.4;
 
     // Location similarity (weight: 0.3)
-    if (query.location) {
-      const locSim = this.locationSimilarity(e1.locations, e2.locations);
-      score += locSim * 0.3;
-      weight += 0.3;
-    }
+    // Always compare entity locations regardless of query location
+    const locSim = this.locationSimilarity(e1.locations, e2.locations);
+    score += locSim * 0.3;
+    weight += 0.3;
 
     // Profile overlap (weight: 0.2)
     const profileSim = this.profileSimilarity(e1.profiles, e2.profiles);
@@ -138,28 +137,24 @@ export class PersonResolver {
     for (const loc1 of locs1) {
       for (const loc2 of locs2) {
         let sim = 0;
-        let matches = 0;
-        
+
         if (loc1.country && loc2.country) {
           if (loc1.country.toLowerCase() === loc2.country.toLowerCase()) {
             sim += 0.5;
-            matches++;
           }
         }
-        
+
         if (loc1.state && loc2.state) {
           if (loc1.state.toLowerCase() === loc2.state.toLowerCase()) {
             sim += 0.3;
-            matches++;
           }
         }
-        
+
         if (loc1.city && loc2.city) {
           const citySim = this.nameSimilarity(loc1.city, loc2.city);
           sim += citySim * 0.2;
-          if (citySim > 0.7) matches++;
         }
-        
+
         maxSim = Math.max(maxSim, sim);
       }
     }
