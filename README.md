@@ -372,6 +372,20 @@ export class MyConnector extends BaseConnector {
 - [ ] United Kingdom: Companies House, court records
 - [ ] European Union: GDPR-compliant public records
 
+## Documentation
+
+This project includes comprehensive documentation:
+
+- **[README.md](README.md)** - This file: Overview, installation, and usage
+- **[ARCHITECTURE.md](ARCHITECTURE.md)** - System design and technical architecture
+- **[ETHICS.md](ETHICS.md)** - Ethical framework and compliance guidelines
+- **[IMPLEMENTATION_SUMMARY.md](IMPLEMENTATION_SUMMARY.md)** - Implementation status and feature checklist
+- **[QUICKSTART.md](QUICKSTART.md)** - Quick start guide for getting up and running
+- **[CLAUDE.md](CLAUDE.md)** - Comprehensive guide for AI agents working with this codebase
+- **[AGENTS.md](AGENTS.md)** - Mirror of CLAUDE.md (identical content for agent compatibility)
+
+**For AI Agents**: If you're an AI agent working on this codebase, please read `CLAUDE.md` or `AGENTS.md` first for detailed guidance on architecture, patterns, ethical considerations, and development workflows.
+
 ## Contributing
 
 Contributions are welcome! Please:
@@ -388,6 +402,7 @@ Contributions are welcome! Please:
 - ESLint compliance
 - Comprehensive error handling
 - Ethical compliance review for new connectors
+- Read `CLAUDE.md` for detailed development guidelines
 
 ## License
 
